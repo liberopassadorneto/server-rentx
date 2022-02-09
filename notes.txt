@@ -1,0 +1,5 @@
+MODEL <=> ORM <=> BD
+JS <=> MIDDLEWARE <=> BD
+
+O ORM "converte" o JS para que o BD consiga entender a linguagem.
+O ORM funciona como um "tradutor" de JS para BD.
