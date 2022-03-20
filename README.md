@@ -9,7 +9,7 @@ Deve ser possível cadastar um novo carro;
 
 **RN**
 Não deve ser possível cadastrar um carro com uma placa já existente;
-O carro deve ser cadastrado como avaiable = true (default);
+O carro deve ser cadastrado como available = true (default);
 (!)O cadastro do carro deve feito somente por um usuário adm;
 
 # Listagem de Carros
