@@ -3,3 +3,12 @@ JS <=> MIDDLEWARE <=> BD
 
 O ORM "converte" o JS para que o BD consiga entender a linguagem.
 O ORM funciona como um "tradutor" de JS para BD.
+
+
+1 - Testes unitários
+
+2 - Teste de Integração
+-> routes -> controllers -> useCases -> repository
+<- repository <- repository <- controllers <- routes
+
+TDD - Test Driven Development
