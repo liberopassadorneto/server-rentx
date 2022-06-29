@@ -27,7 +27,6 @@ A listagem do carro é feita/permitida para usuários logados ou não logados;
 
 **RF**
 Deve ser possível cadastrar uma especificação para um carro;
-Deve ser possível listar todas as especificações;
 
 **RN**
 Não deve ser possível cadastrar uma especificação para um carro que não existe (que não está cadastrado);
