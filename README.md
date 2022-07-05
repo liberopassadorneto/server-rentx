@@ -37,7 +37,7 @@ O cadastro de uma especificação deve feito somente por um usuário adm;
 
 **RF**
 Deve ser possível cadastrar a imagem do carro;
-Deve ser possível listar todos os carros;
+
 
 **RFN**
 Utilizar o multer para o upload dos arquivos;
