@@ -3,9 +3,8 @@ import utc from "dayjs/plugin/utc";
 
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
 import { IRentalsRepository } from "@modules/rentals/repositories/IRentalsRepository";
+import { IDateProvider } from "@shared/container/providers/DateProvider/IDateProvider";
 import { AppError } from "@shared/errors/AppError";
-
-dayjs.extend(utc);
 
 interface IRequest {
     user_id: string;
@@ -14,7 +13,10 @@ interface IRequest {
 }
 
 class CreateRentalUseCase {
-    constructor(private rentalsRepository: IRentalsRepository) {}
+    constructor(
+        private rentalsRepository: IRentalsRepository,
+        private dateProvider: IDateProvider
+    ) {}
 
     async execute({
         user_id,
@@ -41,16 +43,11 @@ class CreateRentalUseCase {
         }
 
         // O aluguel deve ter duração mínima de 24 horas;
-        const expectedReturnDateFormatted = dayjs(expected_return_date)
-            .utc()
-            .local()
-            .format();
+        const dateNow = this.dateProvider.dateNow();
 
-        const dateNowFormatted = dayjs().utc().local().format();
-
-        const compare = dayjs(expectedReturnDateFormatted).diff(
-            dateNowFormatted,
-            "hours"
+        const compare = this.dateProvider.compareInHours(
+            expected_return_date,
+            dateNow
         );
 
         if (compare < minimumHour) {
@@ -59,6 +56,7 @@ class CreateRentalUseCase {
             );
         }
 
+        // if everything is ok, create a new rental
         const rental = await this.rentalsRepository.create({
             user_id,
             car_id,
