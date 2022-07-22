@@ -38,7 +38,6 @@ O cadastro de uma especificação deve feito somente por um usuário adm;
 **RF**
 Deve ser possível cadastrar a imagem do carro;
 
-
 **RFN**
 Utilizar o multer para o upload dos arquivos;
 
@@ -53,5 +52,5 @@ Deve ser possível cadastrar um aluguel;
 
 **RN**
 O aluguel deve ter duração mínima de 24 horas;
-Não deve ser possível cadastrar um novo aluguel, caso já exista um aberto para o mesmo usuário;
 Não deve ser possível cadastrar um novo aluguel, caso já exista um aberto para o mesmo carro;
+Não deve ser possível cadastrar um novo aluguel, caso já exsta um aberto para o mesmo usuário;
