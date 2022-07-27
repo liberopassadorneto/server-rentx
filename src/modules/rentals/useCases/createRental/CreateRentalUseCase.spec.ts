@@ -15,6 +15,7 @@ describe("Create Rental", () => {
 
     beforeEach(() => {
         rentalsRepositoryInMemory = new RentalsRepositoryInMemory();
+        dayJsDateProvider = new DayJsDateProvider();
         createRentalUseCase = new CreateRentalUseCase(
             rentalsRepositoryInMemory,
             dayJsDateProvider
@@ -65,10 +66,12 @@ describe("Create Rental", () => {
     });
 
     it.only("should not create a new rental if expected return date is less than 24 hours from now", async () => {
-        await createRentalUseCase.execute({
-            user_id: "Libero",
-            car_id: "AudiTT",
-            expected_return_date: dayjs().toDate(),
-        });
+        expect(async () => {
+            await createRentalUseCase.execute({
+                user_id: "Libero",
+                car_id: "AudiTT",
+                expected_return_date: dayjs().toDate(),
+            });
+        }).rejects.toBeInstanceOf(AppError);
     });
 });
