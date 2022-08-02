@@ -6,7 +6,8 @@
     "scripts": {
         "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules --respawn src/shared/infra/http/server.ts",
         "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli",
-        "seed:admin": "ts-node-dev src/shared/infra/typeorm/seed/admin.ts"
+        "seed:admin": "ts-node-dev -r tsconfig-paths/register src/shared/infra/typeorm/seed/admin.ts",
+        "test": "NODE_ENV=test jest --runInBand --detectOpenHandles"
     },
     "devDependencies": {
         "@types/bcryptjs": "^2.4.2",
@@ -34,6 +35,7 @@
         "@types/csv-parse": "^1.2.2",
         "@types/multer": "^1.4.7",
         "@types/pg": "^8.6.4",
+        "@types/supertest": "^2.0.12",
         "bcryptjs": "^2.4.3",
         "csv-parse": "^5.0.4",
         "dayjs": "^1.11.4",
@@ -43,6 +45,7 @@
         "multer": "^1.4.5-lts.1",
         "pg": "^8.7.3",
         "reflect-metadata": "^0.1.13",
+        "supertest": "^6.2.4",
         "swagger-ui-express": "^4.3.0",
         "ts-jest": "^28.0.5",
         "tsyringe": "^4.6.0",
