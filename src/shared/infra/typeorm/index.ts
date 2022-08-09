@@ -7,7 +7,7 @@ export default async (host = "localhost"): Promise<Connection> => {
         Object.assign(defaultOptions, {
             host: process.env.NODE_ENV === "test" ? "localhost" : host,
             database:
-                process.env.NODE_END === "test"
+                process.env.NODE_ENV === "test"
                     ? "rentx_test"
                     : defaultOptions.database,
         })
