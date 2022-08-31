@@ -1,4 +1,4 @@
-import { inject } from "tsyringe";
+import { inject, injectable } from "tsyringe";
 
 import { ICarsRepository } from "@modules/cars/repositories/ICarsRepository";
 import { Rental } from "@modules/rentals/infra/typeorm/entities/Rental";
@@ -11,6 +11,7 @@ interface IRequest {
     user_id: string;
 }
 
+@injectable()
 class DevolutionRentalUseCase {
     constructor(
         @inject("RentalsRepository")
@@ -23,7 +24,7 @@ class DevolutionRentalUseCase {
 
     async execute({ id, user_id }: IRequest): Promise<Rental> {
         const rental = await this.rentalsRepository.findById(id);
-        const car = await this.carsRepository.findById(id);
+        const car = await this.carsRepository.findById(rental.car_id);
         const minimumDaily = 1;
 
         if (!rental) {
@@ -31,9 +32,12 @@ class DevolutionRentalUseCase {
         }
 
         // verificar o tempo de aluguel
-        const dateNow = this.dateProvider.dateNow();
+        const currentReturnDate = this.dateProvider.dateNow();
 
-        let daily = this.dateProvider.compareInDays(dateNow, rental.start_date);
+        let daily = this.dateProvider.compareInDays(
+            currentReturnDate,
+            rental.start_date
+        );
 
         // Se o carro for devolvido com menos de 24 horas, deverá ser cobrado uma diária completa.
         if (daily <= 0) {
@@ -41,8 +45,8 @@ class DevolutionRentalUseCase {
         }
 
         const delay = this.dateProvider.compareInDays(
-            rental.expected_return_date,
-            dateNow
+            currentReturnDate,
+            rental.expected_return_date
         );
 
         let total = 0;
@@ -54,7 +58,7 @@ class DevolutionRentalUseCase {
 
         total += daily * car.daily_rate;
 
-        rental.end_date = this.dateProvider.dateNow();
+        rental.end_date = currentReturnDate;
         rental.total = total;
 
         await this.rentalsRepository.create(rental);
