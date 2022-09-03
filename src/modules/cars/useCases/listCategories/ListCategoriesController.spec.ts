@@ -37,7 +37,7 @@ describe("List Categories Controller", () => {
 
         const { refresh_token } = responseToken.body;
 
-        console.log(refresh_token);
+        // console.log(responseToken.body);
 
         await request(app)
             .post("/categories")
