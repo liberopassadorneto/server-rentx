@@ -18,8 +18,6 @@ export async function ensureAuthenticated(
     // Bearer 319csad1293dkao1 (token)
     const authHeader = request.headers.authorization;
 
-    const usersTokensRepository = new UsersTokensRepository();
-
     if (!authHeader) {
         throw new AppError("Token missing from request", 401);
     }
@@ -34,19 +32,7 @@ export async function ensureAuthenticated(
 
     try {
         // preciso somente do sub (id do user) da resposta do verify(), por isso, vou fazer uma desestruturação
-        const { sub: user_id } = verify(
-            token,
-            auth.secret_refresh_token
-        ) as IPayload;
-
-        const user = await usersTokensRepository.findByUserIdAndRefreshToken(
-            user_id,
-            token
-        );
-
-        if (!user) {
-            throw new AppError("User does not exists", 401);
-        }
+        const { sub: user_id } = verify(token, auth.secret_token) as IPayload;
 
         request.user = {
             id: user_id,
