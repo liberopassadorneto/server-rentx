@@ -25,6 +25,7 @@ class UsersRepository implements IUsersRepository {
             driver_license,
             password,
             id,
+            avatar,
         });
 
         await this.repository.save(user);
