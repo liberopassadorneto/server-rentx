@@ -16,7 +16,7 @@ yarn-error.log*
 # Jest
 coverage
 
-# ORM
+# TypeORM
 ormconfig.json
 
 # TMP files
